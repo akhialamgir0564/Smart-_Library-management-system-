@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up</title>
+<style>
+:root{
+    --pink:#ec4899;
+    --pink-light:#fdf2f8;
+    --pink-dark:#be185d;
+}
+
+body{
+    font-family:Arial;
+    background:linear-gradient(135deg,#fff1f2,#fce7f3,#fdf2f8);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    background:white;
+    padding:35px;
+    width:340px;
+    border-radius:14px;
+    box-shadow:0 15px 35px rgba(236,72,153,.25);
+    text-align:center;
+}
+
+h2{
+    color:var(--pink-dark);
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:11px;
+    margin:10px 0;
+    border:1px solid #fbcfe8;
+    border-radius:8px;
+    font-size:14px;
+}
+
+input:focus{
+    outline:none;
+    border-color:var(--pink);
+}
+
+button{
+    width:100%;
+    padding:11px;
+    margin-top:10px;
+    background:var(--pink);
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:var(--pink-dark);
+}
+
+a{
+    color:var(--pink-dark);
+    text-decoration:none;
+    font-weight:600;
+}
+
+p{margin-top:15px;}
+</style>
+</head>
+
+<body>
+<div class="card">
+<h2>🌸 Create Account</h2>
+
+<input id="name" placeholder="Full Name">
+<input id="email" placeholder="Email Address">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="signup()">Sign Up</button>
+
+<p>Already have an account?
+<a href="login.html">Login</a></p>
+</div>
+<script>
+function signup(){
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    if(!name || !email || !password){
+        alert("Fill all fields");
+        return;
+    }
+
+    if(users.find(u => u.email === email)){
+        alert("User already exists");
+        return;
+    }
+
+    users.push({name,email,password});
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Signup successful!");
+    window.location.href = "login.html";
+}
+</script>
+</body>
+</html>
+
+
